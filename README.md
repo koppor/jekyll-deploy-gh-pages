@@ -25,21 +25,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Build & Deploy to GitHub Pages
+      - name: Build for GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
         uses: BryanSchuetz/jekyll-deploy-gh-pages@master
+      - name: Push to `gh-pages` branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          force: true
+          directory: build
 ```
 
 Clones the repo, builds the site, and commits it back to the gh-pages branch of the repository.
 
 ## Caveats
 
-* This uses the v2 of the Actions beta—note the Yaml based workflow syntax.
-* **`GITHUB_TOKEN`, privileges are still being sorted out by the Actions/GH-Pages team. Changes pushed to your GH-pages branch will only be picked up by the Github Pages server if your workflow is in a private repository.**
-* Needs a .gemfile
-* `destination:` should be set to `./build` in your _config.yml file—as God demands.
-* Be sure that any custom gems needed are included in your Gemfile.
-* If you're looking to seperate out the build/deploy steps of this action so you can throw your own actions in between them, look at the limited build and deploy actions in this rpo.
+* `destination:` should be set to `./build` in your _config.yml file — as God demands.
+* Needs a `Gemfile`
+* Be sure that any custom gems needed are included in your `Gemfile`.
+* Pushed currently do not work on public repositories. We therefore rely on [GitHub Push](https://github.com/marketplace/actions/github-push).
