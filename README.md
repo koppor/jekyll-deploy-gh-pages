@@ -1,9 +1,6 @@
-
-> **This action has been updated from the first beta version of GH Actions (HCL) to the newest Beta version (YML Syntax)**
-
 # A GitHub Action for Custom Jekyll Builds on GitHub Pages
 
-A GitHub Action for building and deploying a Jekyll repo back to its `gh-pages` branch.
+> A GitHub Action for building and deploying a Jekyll repo back to its `gh-pages` branch **with `.nojekyll` to prevent GitHub rebuilding the page**.
 
 **Why not just let GitHub Pages build it? Becaues this way we can use our own custom Jekyll plugins and build scripts.**
 
